@@ -2,51 +2,69 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div>
-    Search Page
-</div>
-<div>
-    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
-    {
-        <div class="form-group">
-            @Html.LabelFor(model => model.TextField)
-            @Html.TextBoxFor(model => model.TextField, new { @class = "form-control" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SelectedOption)
-            @Html.DropDownListFor(model => model.SelectedOption, new SelectList(Model.DropdownOptions), "Select an option", new { @class = "form-control" })
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+<style>
+    .pl-3{
+        padding-left:1.5em;
     }
-</div>
+</style>
 <div class="container">
-    <h2>Product Information</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Size</th>
-                <th>Price</th>
-                <th>Manufacture Date</th>
-                <th>Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- You can dynamically generate rows for your data here -->
-            @foreach (var product in Model.Product)
-            {
-                <tr>
-                    <td>@product.ProductName</td>
-                    <td>@product.Size</td>
-                    <td>@product.Price.ToString("C")</td>
-                    <td>@product.MfgDate.ToString("yyyy-MM-dd")</td>
-                    <td>@product.Category</td>
-                </tr>
-            }
-            <!-- Add more rows for additional data -->
-        </tbody>
-    </table>
-</div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Search Page</h2>
+        </div>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "d-flex" }))
+        {
+           
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TextField, new { @class = "sr-only" })
+                    @Html.TextBoxFor(model => model.TextField, new { @class = "form-control", placeholder = "Search Text" })
+                </div>
+
+                <div class="form-group ml-2 pl-3">
+                    <!-- Add ml-2 (margin-left) class to create space between form elements -->
+                    @Html.LabelFor(model => model.SelectedOption, new { @class = "sr-only" })
+                    @Html.DropDownListFor(model => model.SelectedOption, new SelectList(Model.DropdownOptions), "Select an option", new { @class = "form-control" })
+                </div>
+             
+                <button type="submit" class="btn btn-primary" style="
+    margin-left: 30em;
+    max-height: 2em;
+    margin-top: 25px;
+">Search</button> 
+                }
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Product Information</h2>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Size</th>
+                                <th>Price</th>
+                                <th>Manufacture Date</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- You can dynamically generate rows for your data here -->
+                            @foreach (var product in Model.Product)
+                            {
+                                <tr>
+                                    <td>@product.ProductName</td>
+                                    <td>@product.Size</td>
+                                    <td>@product.Price.ToString("C")</td>
+                                    <td>@product.MfgDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@product.Category</td>
+                                </tr>
+                            }
+                            <!-- Add more rows for additional data -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
