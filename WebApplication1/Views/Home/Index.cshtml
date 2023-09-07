@@ -1,0 +1,52 @@
+﻿@model WebApplication1.Models.ProductViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div>
+    Search Page
+</div>
+<div>
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.TextField)
+            @Html.TextBoxFor(model => model.TextField, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedOption)
+            @Html.DropDownListFor(model => model.SelectedOption, new SelectList(Model.DropdownOptions), "Select an option", new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+</div>
+<div class="container">
+    <h2>Product Information</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Manufacture Date</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- You can dynamically generate rows for your data here -->
+            @foreach (var product in Model.Product)
+            {
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>@product.Size</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.MfgDate.ToString("yyyy-MM-dd")</td>
+                    <td>@product.Category</td>
+                </tr>
+            }
+            <!-- Add more rows for additional data -->
+        </tbody>
+    </table>
+</div>
